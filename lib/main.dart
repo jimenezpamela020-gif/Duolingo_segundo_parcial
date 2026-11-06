@@ -1,4 +1,5 @@
 ﻿import 'package:flutter/material.dart';
+import 'colors.dart';
 import 'screens/login_screen.dart';
 
 void main() {
@@ -13,7 +14,15 @@ class DuolingoApp extends StatelessWidget {
     return MaterialApp(
       title: 'Duolingo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(useMaterial3: true),
+      theme: ThemeData(
+        useMaterial3: true,
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: AppColors.fondoOscuro,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: AppColors.verde,
+          brightness: Brightness.dark,
+        ),
+      ),
       home: const LoginScreen(),
     );
   }
