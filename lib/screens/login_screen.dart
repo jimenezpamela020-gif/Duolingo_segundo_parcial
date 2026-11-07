@@ -13,81 +13,83 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _usuarioCtrl = TextEditingController();
-  final _passCtrl = TextEditingController();
-  bool _ocultar = true;
+  final TextEditingController usuarioController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  bool ocultarPassword = true;
 
-  @override
-  void dispose() {
-    _usuarioCtrl.dispose();
-    _passCtrl.dispose();
-    super.dispose();
-  }
-
-  void _mensaje(String texto, Color color) {
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+  void mostrarMensaje(String texto) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(texto), backgroundColor: color),
+      SnackBar(content: Text(texto)),
     );
   }
 
-  void _login() {
-    final usuario = _usuarioCtrl.text.trim();
-    final password = _passCtrl.text;
+  void actualizar(String texto) {
+    setState(() {});
+  }
+
+  void cambiarVisibilidad() {
+    setState(() {
+      ocultarPassword = !ocultarPassword;
+    });
+  }
+
+  void iniciarSesion() {
+    String usuario = usuarioController.text;
+    String password = passwordController.text;
 
     if (usuario.isEmpty || password.isEmpty) {
-      _mensaje('Completa todos los campos', AppColors.rojo);
-      return;
-    }
-    if (usuario == usuarioCorrecto && password == passwordCorrecta) {
-      Navigator.pushReplacement(
+      mostrarMensaje('Completa todos los campos');
+    } else if (usuario == usuarioCorrecto && password == passwordCorrecta) {
+      Navigator.push(
         context,
-        MaterialPageRoute(builder: (_) => const HomeScreen()),
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
       );
     } else {
-      _mensaje('Usuario o contraseña incorrectos', AppColors.rojo);
+      mostrarMensaje('Usuario o contraseña incorrectos');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final listo = _usuarioCtrl.text.isNotEmpty && _passCtrl.text.isNotEmpty;
+    bool camposLlenos = usuarioController.text.isNotEmpty &&
+        passwordController.text.isNotEmpty;
 
     return Scaffold(
+      backgroundColor: AppColors.fondoOscuro,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: true,
         title: const Text(
           'Ingresa tus datos',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white70),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white54),
         ),
+        centerTitle: true,
+        backgroundColor: AppColors.fondoOscuro,
       ),
       body: SafeArea(
         child: Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 480),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
                   Expanded(
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          const SizedBox(height: 16),
                           Container(
                             decoration: BoxDecoration(
                               color: const Color(0xFF202F36),
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(
-                                  color: const Color(0xFF37464F), width: 2),
+                                color: const Color(0xFF37464F),
+                                width: 2,
+                              ),
                             ),
                             child: Column(
                               children: [
                                 TextField(
-                                  controller: _usuarioCtrl,
-                                  onChanged: (_) => setState(() {}),
+                                  controller: usuarioController,
+                                  onChanged: actualizar,
                                   style: const TextStyle(color: Colors.white),
                                   decoration: const InputDecoration(
                                     hintText: 'Usuario o correo',
@@ -97,11 +99,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                                 const Divider(
-                                    height: 2, color: Color(0xFF37464F)),
+                                  height: 2,
+                                  color: Color(0xFF37464F),
+                                ),
                                 TextField(
-                                  controller: _passCtrl,
-                                  obscureText: _ocultar,
-                                  onChanged: (_) => setState(() {}),
+                                  controller: passwordController,
+                                  obscureText: ocultarPassword,
+                                  onChanged: actualizar,
                                   style: const TextStyle(color: Colors.white),
                                   decoration: InputDecoration(
                                     hintText: 'Contraseña',
@@ -111,13 +115,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                     contentPadding: const EdgeInsets.all(18),
                                     suffixIcon: IconButton(
                                       icon: Icon(
-                                        _ocultar
+                                        ocultarPassword
                                             ? Icons.visibility
                                             : Icons.visibility_off,
                                         color: AppColors.azul,
                                       ),
-                                      onPressed: () =>
-                                          setState(() => _ocultar = !_ocultar),
+                                      onPressed: cambiarVisibilidad,
                                     ),
                                   ),
                                 ),
@@ -129,77 +132,110 @@ class _LoginScreenState extends State<LoginScreen> {
                             width: double.infinity,
                             height: 52,
                             child: ElevatedButton(
-                              onPressed: _login,
+                              onPressed: iniciarSesion,
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: listo
+                                backgroundColor: camposLlenos
                                     ? AppColors.azul
                                     : const Color(0xFF37464F),
                                 foregroundColor:
-                                    listo ? Colors.white : Colors.white38,
+                                    camposLlenos ? Colors.white : Colors.white38,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(16),
                                 ),
                               ),
                               child: const Text(
                                 'INGRESAR',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 1),
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
                           const SizedBox(height: 24),
                           TextButton(
-                            onPressed: () => _mensaje(
-                                'Función no disponible en la simulación',
-                                AppColors.morado),
+                            onPressed: () {
+                              mostrarMensaje('Función no disponible');
+                            },
                             child: const Text(
                               'RESTABLECER CONTRASEÑA',
                               style: TextStyle(
-                                  color: AppColors.azul,
-                                  fontWeight: FontWeight.bold),
+                                color: AppColors.azul,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
                   ),
-                  _botonSocial(Icons.g_mobiledata, 'INGRESA CON GOOGLE'),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 52,
+                    child: OutlinedButton.icon(
+                      onPressed: () {
+                        mostrarMensaje('Función no disponible');
+                      },
+                      icon: const Icon(
+                        Icons.g_mobiledata,
+                        size: 32,
+                        color: Colors.white,
+                      ),
+                      label: const Text(
+                        'INGRESA CON GOOGLE',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(
+                          color: Color(0xFF37464F),
+                          width: 2,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: 12),
-                  _botonSocial(Icons.facebook, 'INGRESA CON FACEBOOK'),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 52,
+                    child: OutlinedButton.icon(
+                      onPressed: () {
+                        mostrarMensaje('Función no disponible');
+                      },
+                      icon: const Icon(
+                        Icons.facebook,
+                        size: 28,
+                        color: Color(0xFF1877F2),
+                      ),
+                      label: const Text(
+                        'INGRESA CON FACEBOOK',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(
+                          color: Color(0xFF37464F),
+                          width: 2,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: 16),
                   const Text(
                     'Al registrarte en Duolingo, aceptas nuestros Términos y Política de privacidad.',
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.white38, fontSize: 12),
                   ),
-                  const SizedBox(height: 12),
                 ],
               ),
             ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _botonSocial(IconData icono, String texto) {
-    return SizedBox(
-      width: double.infinity,
-      height: 52,
-      child: OutlinedButton.icon(
-        onPressed: () => _mensaje(
-            'Función no disponible en la simulación', AppColors.morado),
-        icon: Icon(icono, color: Colors.white, size: 28),
-        label: Text(
-          texto,
-          style: const TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 1),
-        ),
-        style: OutlinedButton.styleFrom(
-          side: const BorderSide(color: Color(0xFF37464F), width: 2),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
           ),
         ),
       ),
