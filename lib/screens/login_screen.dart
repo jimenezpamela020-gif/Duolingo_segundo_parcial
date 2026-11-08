@@ -173,11 +173,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         mostrarMensaje('Función no disponible');
                       },
-                      icon: const Icon(
-                        Icons.g_mobiledata,
-                        size: 32,
-                        color: Colors.white,
-                      ),
+                      icon: Image.asset('assets/images/google.png', width: 24, height: 24),
                       label: const Text(
                         'INGRESA CON GOOGLE',
                         style: TextStyle(
@@ -242,3 +238,4 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+
