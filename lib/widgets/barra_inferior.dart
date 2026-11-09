@@ -21,7 +21,7 @@ class BarraInferior extends StatelessWidget {
       pantalla = const PerfilScreen();
     }
 
-    Navigator.push(
+    Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => pantalla),
     );
@@ -76,4 +76,3 @@ class BarraInferior extends StatelessWidget {
     );
   }
 }
-
