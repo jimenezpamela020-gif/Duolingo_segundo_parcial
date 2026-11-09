@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               // Contenido central adaptado al diseño web
               Expanded(
                 child: Center(
@@ -109,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const SizedBox(height: 24),
+                          const SizedBox(height: 20),
                           Container(
                             decoration: BoxDecoration(
                               color: const Color(0xFF202F36),
@@ -162,12 +162,21 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           const SizedBox(height: 12),
-                          const Text(
-                            'Agregar tu edad te garantiza una experiencia adaptada en Duolingo. Para más información, por favor consulta nuestra Política de Privacidad.',
+                          // Texto con Política de Privacidad en azul
+                          RichText(
                             textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.white38, fontSize: 13),
+                            text: const TextSpan(
+                              style: TextStyle(color: Colors.white38, fontSize: 13),
+                              children: [
+                                TextSpan(text: 'Agregar tu edad te garantiza una experiencia adaptada en Duolingo. Para más información, por favor consulta nuestra '),
+                                TextSpan(
+                                  text: 'Política de Privacidad.',
+                                  style: TextStyle(color: Color(0xFF1CB0F6), fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
                           ),
-                          const SizedBox(height: 24),
+                          const SizedBox(height: 20),
                           SizedBox(
                             width: double.infinity,
                             height: 52,
@@ -189,10 +198,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 16),
                           const Divider(color: Color(0xFF37464F), thickness: 1),
-                          const SizedBox(height: 20),
-                          // Botones de redes sociales inferiores
+                          const SizedBox(height: 16),
+                          // Botones de redes sociales inferiores con logo real de Google
                           Row(
                             children: [
                               Expanded(
@@ -200,7 +209,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                   onPressed: () {
                                     mostrarMensaje('Función no disponible');
                                   },
-                                  icon: const Icon(Icons.g_mobiledata, size: 28, color: Colors.white),
+                                  icon: Image.asset(
+                                    'assets/images/google.png',
+                                    width: 22,
+                                    height: 22,
+                                  ),
                                   label: const Text('GOOGLE', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                                   style: OutlinedButton.styleFrom(
                                     side: const BorderSide(color: Color(0xFF37464F), width: 2),
@@ -215,7 +228,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   onPressed: () {
                                     mostrarMensaje('Función no disponible');
                                   },
-                                  icon: const Icon(Icons.apple, size: 28, color: Colors.white),
+                                  icon: const Icon(Icons.apple, size: 24, color: Colors.white),
                                   label: const Text('APPLE', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                                   style: OutlinedButton.styleFrom(
                                     side: const BorderSide(color: Color(0xFF37464F), width: 2),
@@ -226,11 +239,17 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 16),
                           const Text(
                             'Al registrarte en Duolingo, aceptas nuestros Términos y Política de privacidad.',
                             textAlign: TextAlign.center,
                             style: TextStyle(color: Colors.white38, fontSize: 11),
+                          ),
+                          const SizedBox(height: 10),
+                          const Text(
+                            'Esta página está protegida por reCAPTCHA Enterprise. Aplican tanto la política de privacidad como los términos del servicio de Google.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white30, fontSize: 10),
                           ),
                         ],
                       ),
