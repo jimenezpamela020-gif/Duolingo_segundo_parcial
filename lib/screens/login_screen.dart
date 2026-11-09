@@ -56,26 +56,60 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.fondoOscuro,
-      appBar: AppBar(
-        title: const Text(
-          'Ingresa tus datos',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white54),
-        ),
-        centerTitle: true,
-        backgroundColor: AppColors.fondoOscuro,
-      ),
       body: SafeArea(
-        child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 480),
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          child: Column(
+            children: [
+              // Fila superior con la "X" a la izquierda y el botón "INGRESAR" a la derecha
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
+                  IconButton(
+                    icon: const Icon(Icons.close, color: Colors.white70),
+                    onPressed: () {
+                      mostrarMensaje('Acción de cerrar');
+                    },
+                  ),
+                  OutlinedButton(
+                    onPressed: iniciarSesion,
+                    style: OutlinedButton.styleFrom(
+                      side: const BorderSide(color: Color(0xFF37464F), width: 2),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    ),
+                    child: const Text(
+                      'INGRESAR',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              // Contenido central adaptado al diseño web
+              Expanded(
+                child: Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 450),
                     child: SingleChildScrollView(
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          const Text(
+                            '¿Cuántos años tienes?',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 24),
                           Container(
                             decoration: BoxDecoration(
                               color: const Color(0xFF202F36),
@@ -127,7 +161,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               ],
                             ),
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 12),
+                          const Text(
+                            'Agregar tu edad te garantiza una experiencia adaptada en Duolingo. Para más información, por favor consulta nuestra Política de Privacidad.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white38, fontSize: 13),
+                          ),
+                          const SizedBox(height: 24),
                           SizedBox(
                             width: double.infinity,
                             height: 52,
@@ -144,98 +184,61 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               child: const Text(
-                                'INGRESAR',
+                                'CONTINUAR',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
-                          const SizedBox(height: 24),
-                          TextButton(
-                            onPressed: () {
-                              mostrarMensaje('Función no disponible');
-                            },
-                            child: const Text(
-                              'RESTABLECER CONTRASEÑA',
-                              style: TextStyle(
-                                color: AppColors.azul,
-                                fontWeight: FontWeight.bold,
+                          const SizedBox(height: 20),
+                          const Divider(color: Color(0xFF37464F), thickness: 1),
+                          const SizedBox(height: 20),
+                          // Botones de redes sociales inferiores
+                          Row(
+                            children: [
+                              Expanded(
+                                child: OutlinedButton.icon(
+                                  onPressed: () {
+                                    mostrarMensaje('Función no disponible');
+                                  },
+                                  icon: const Icon(Icons.g_mobiledata, size: 28, color: Colors.white),
+                                  label: const Text('GOOGLE', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                                  style: OutlinedButton.styleFrom(
+                                    side: const BorderSide(color: Color(0xFF37464F), width: 2),
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                                    padding: const EdgeInsets.symmetric(vertical: 14),
+                                  ),
+                                ),
                               ),
-                            ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: OutlinedButton.icon(
+                                  onPressed: () {
+                                    mostrarMensaje('Función no disponible');
+                                  },
+                                  icon: const Icon(Icons.apple, size: 28, color: Colors.white),
+                                  label: const Text('APPLE', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                                  style: OutlinedButton.styleFrom(
+                                    side: const BorderSide(color: Color(0xFF37464F), width: 2),
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                                    padding: const EdgeInsets.symmetric(vertical: 14),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+                          const Text(
+                            'Al registrarte en Duolingo, aceptas nuestros Términos y Política de privacidad.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white38, fontSize: 11),
                           ),
                         ],
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 52,
-                    child: OutlinedButton.icon(
-                      onPressed: () {
-                        mostrarMensaje('Función no disponible');
-                      },
-                      icon: const Icon(
-                        Icons.g_mobiledata,
-                        size: 32,
-                        color: Colors.white,
-                      ),
-                      label: const Text(
-                        'INGRESA CON GOOGLE',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                      style: OutlinedButton.styleFrom(
-                        side: const BorderSide(
-                          color: Color(0xFF37464F),
-                          width: 2,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 52,
-                    child: OutlinedButton.icon(
-                      onPressed: () {
-                        mostrarMensaje('Función no disponible');
-                      },
-                      icon: const Icon(
-                        Icons.facebook,
-                        size: 28,
-                        color: Color(0xFF1877F2),
-                      ),
-                      label: const Text(
-                        'INGRESA CON FACEBOOK',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                      style: OutlinedButton.styleFrom(
-                        side: const BorderSide(
-                          color: Color(0xFF37464F),
-                          width: 2,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'Al registrarte en Duolingo, aceptas nuestros Términos y Política de privacidad.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white38, fontSize: 12),
-                  ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
         ),
       ),
