@@ -2,9 +2,6 @@
 import '../colors.dart';
 import 'home_screen.dart';
 
-const String usuarioCorrecto = 'admin';
-const String passwordCorrecta = '1234';
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -13,7 +10,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController usuarioController = TextEditingController();
+  final TextEditingController nombreController = TextEditingController();
+  final TextEditingController correoController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool ocultarPassword = true;
 
@@ -33,25 +31,20 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  void iniciarSesion() {
-    String usuario = usuarioController.text;
-    String password = passwordController.text;
-
-    if (usuario.isEmpty || password.isEmpty) {
-      mostrarMensaje('Completa todos los campos');
-    } else if (usuario == usuarioCorrecto && password == passwordCorrecta) {
-      Navigator.push(
+  void crearCuenta() {
+    if (correoController.text.isEmpty || passwordController.text.isEmpty) {
+      mostrarMensaje('Completa el correo y la contraseña');
+    } else {
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const HomeScreen()),
       );
-    } else {
-      mostrarMensaje('Usuario o contraseña incorrectos');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    bool camposLlenos = usuarioController.text.isNotEmpty &&
+    bool camposLlenos = correoController.text.isNotEmpty &&
         passwordController.text.isNotEmpty;
 
     return Scaffold(
@@ -61,18 +54,20 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           child: Column(
             children: [
-              // Fila superior con la "X" a la izquierda y el botón "INGRESAR" a la derecha
+              // Fila superior con flecha de regreso y botón INGRESAR
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.close, color: Colors.white70),
+                    icon: const Icon(Icons.arrow_back, color: Colors.white70),
                     onPressed: () {
-                      mostrarMensaje('Acción de cerrar');
+                      mostrarMensaje('Acción no disponible');
                     },
                   ),
                   OutlinedButton(
-                    onPressed: iniciarSesion,
+                    onPressed: () {
+                      mostrarMensaje('Ya estás en la pantalla de registro');
+                    },
                     style: OutlinedButton.styleFrom(
                       side: const BorderSide(color: Color(0xFF37464F), width: 2),
                       shape: RoundedRectangleBorder(
@@ -92,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
               const SizedBox(height: 10),
-              // Contenido central adaptado al diseño web
+              // Contenido central de "Crea tu perfil"
               Expanded(
                 child: Center(
                   child: ConstrainedBox(
@@ -102,14 +97,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text(
-                            '¿Cuántos años tienes?',
+                            'Crea tu perfil',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 26,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 24),
                           Container(
                             decoration: BoxDecoration(
                               color: const Color(0xFF202F36),
@@ -122,11 +117,26 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Column(
                               children: [
                                 TextField(
-                                  controller: usuarioController,
+                                  controller: nombreController,
                                   onChanged: actualizar,
                                   style: const TextStyle(color: Colors.white),
                                   decoration: const InputDecoration(
-                                    hintText: 'Usuario o correo',
+                                    hintText: 'Nombre (opcional)',
+                                    hintStyle: TextStyle(color: Colors.white38),
+                                    border: InputBorder.none,
+                                    contentPadding: EdgeInsets.all(18),
+                                  ),
+                                ),
+                                const Divider(
+                                  height: 2,
+                                  color: Color(0xFF37464F),
+                                ),
+                                TextField(
+                                  controller: correoController,
+                                  onChanged: actualizar,
+                                  style: const TextStyle(color: Colors.white),
+                                  decoration: const InputDecoration(
+                                    hintText: 'Correo',
                                     hintStyle: TextStyle(color: Colors.white38),
                                     border: InputBorder.none,
                                     contentPadding: EdgeInsets.all(18),
@@ -161,27 +171,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               ],
                             ),
                           ),
-                          const SizedBox(height: 12),
-                          // Texto con Política de Privacidad en azul
-                          RichText(
-                            textAlign: TextAlign.center,
-                            text: const TextSpan(
-                              style: TextStyle(color: Colors.white38, fontSize: 13),
-                              children: [
-                                TextSpan(text: 'Agregar tu edad te garantiza una experiencia adaptada en Duolingo. Para más información, por favor consulta nuestra '),
-                                TextSpan(
-                                  text: 'Política de Privacidad.',
-                                  style: TextStyle(color: Color(0xFF1CB0F6), fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 24),
                           SizedBox(
                             width: double.infinity,
                             height: 52,
                             child: ElevatedButton(
-                              onPressed: iniciarSesion,
+                              onPressed: crearCuenta,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: camposLlenos
                                     ? AppColors.azul
@@ -193,63 +188,50 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               child: const Text(
-                                'CONTINUAR',
+                                'CREAR CUENTA',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
-                          const SizedBox(height: 16),
-                          const Divider(color: Color(0xFF37464F), thickness: 1),
-                          const SizedBox(height: 16),
-                          // Botones de redes sociales inferiores con logo real de Google
-                          Row(
-                            children: [
-                              Expanded(
-                                child: OutlinedButton.icon(
-                                  onPressed: () {
-                                    mostrarMensaje('Función no disponible');
-                                  },
-                                  icon: Image.asset(
-                                    'assets/images/google.png',
-                                    width: 22,
-                                    height: 22,
-                                  ),
-                                  label: const Text('GOOGLE', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                                  style: OutlinedButton.styleFrom(
-                                    side: const BorderSide(color: Color(0xFF37464F), width: 2),
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                                    padding: const EdgeInsets.symmetric(vertical: 14),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                child: OutlinedButton.icon(
-                                  onPressed: () {
-                                    mostrarMensaje('Función no disponible');
-                                  },
-                                  icon: const Icon(Icons.apple, size: 24, color: Colors.white),
-                                  label: const Text('APPLE', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                                  style: OutlinedButton.styleFrom(
-                                    side: const BorderSide(color: Color(0xFF37464F), width: 2),
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                                    padding: const EdgeInsets.symmetric(vertical: 14),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          const Text(
-                            'Al registrarte en Duolingo, aceptas nuestros Términos y Política de privacidad.',
+                          const SizedBox(height: 24),
+                          // Términos y políticas con enlaces en azul
+                          RichText(
                             textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.white38, fontSize: 11),
+                            text: const TextSpan(
+                              style: TextStyle(color: Colors.white38, fontSize: 12),
+                              children: [
+                                TextSpan(text: 'Al registrarte en Duolingo, aceptas nuestros '),
+                                TextSpan(
+                                  text: 'Términos',
+                                  style: TextStyle(color: Color(0xFF1CB0F6)),
+                                ),
+                                TextSpan(text: ' y '),
+                                TextSpan(
+                                  text: 'Política de privacidad.',
+                                  style: TextStyle(color: Color(0xFF1CB0F6)),
+                                ),
+                              ],
+                            ),
                           ),
-                          const SizedBox(height: 10),
-                          const Text(
-                            'Esta página está protegida por reCAPTCHA Enterprise. Aplican tanto la política de privacidad como los términos del servicio de Google.',
+                          const SizedBox(height: 14),
+                          RichText(
                             textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.white30, fontSize: 10),
+                            text: const TextSpan(
+                              style: TextStyle(color: Colors.white30, fontSize: 10),
+                              children: [
+                                TextSpan(text: 'Esta página está protegida por reCAPTCHA Enterprise. Aplican tanto la '),
+                                TextSpan(
+                                  text: 'política de privacidad',
+                                  style: TextStyle(color: Color(0xFF1CB0F6)),
+                                ),
+                                TextSpan(text: ' como los '),
+                                TextSpan(
+                                  text: 'términos del servicio',
+                                  style: TextStyle(color: Color(0xFF1CB0F6)),
+                                ),
+                                TextSpan(text: ' de Google.'),
+                              ],
+                            ),
                           ),
                         ],
                       ),
