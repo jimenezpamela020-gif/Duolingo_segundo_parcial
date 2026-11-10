@@ -1,4 +1,5 @@
 ﻿import 'package:flutter/material.dart';
+
 import '../colors.dart';
 import 'home_screen.dart';
 
@@ -15,10 +16,12 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordController = TextEditingController();
   bool ocultarPassword = true;
 
+  // 🔹 Credenciales estáticas exigidas por los requisitos del proyecto
+  static const String correoCorrecto = 'admin@duolingo.com';
+  static const String passwordCorrecta = '1234';
+
   void mostrarMensaje(String texto) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(texto)),
-    );
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(texto)));
   }
 
   void actualizar(String texto) {
@@ -34,6 +37,10 @@ class _LoginScreenState extends State<LoginScreen> {
   void crearCuenta() {
     if (correoController.text.isEmpty || passwordController.text.isEmpty) {
       mostrarMensaje('Completa el correo y la contraseña');
+    } else if (correoController.text != correoCorrecto ||
+        passwordController.text != passwordCorrecta) {
+      // Validación contra las credenciales estáticas
+      mostrarMensaje('Correo o contraseña incorrectos');
     } else {
       Navigator.pushReplacement(
         context,
@@ -44,8 +51,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool camposLlenos = correoController.text.isNotEmpty &&
-        passwordController.text.isNotEmpty;
+    bool camposLlenos =
+        correoController.text.isNotEmpty && passwordController.text.isNotEmpty;
 
     return Scaffold(
       backgroundColor: AppColors.fondoOscuro,
@@ -69,11 +76,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       mostrarMensaje('Ya estás en la pantalla de registro');
                     },
                     style: OutlinedButton.styleFrom(
-                      side: const BorderSide(color: Color(0xFF37464F), width: 2),
+                      side: const BorderSide(
+                        color: Color(0xFF37464F),
+                        width: 2,
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 10,
+                      ),
                     ),
                     child: const Text(
                       'INGRESAR',
@@ -136,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   onChanged: actualizar,
                                   style: const TextStyle(color: Colors.white),
                                   decoration: const InputDecoration(
-                                    hintText: 'Correo',
+                                    hintText: 'Correo (ej: admin@duolingo.com)',
                                     hintStyle: TextStyle(color: Colors.white38),
                                     border: InputBorder.none,
                                     contentPadding: EdgeInsets.all(18),
@@ -152,9 +165,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   onChanged: actualizar,
                                   style: const TextStyle(color: Colors.white),
                                   decoration: InputDecoration(
-                                    hintText: 'Contraseña',
-                                    hintStyle:
-                                        const TextStyle(color: Colors.white38),
+                                    hintText: 'Contraseña (ej: 1234)',
+                                    hintStyle: const TextStyle(
+                                      color: Colors.white38,
+                                    ),
                                     border: InputBorder.none,
                                     contentPadding: const EdgeInsets.all(18),
                                     suffixIcon: IconButton(
@@ -181,8 +195,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 backgroundColor: camposLlenos
                                     ? AppColors.azul
                                     : const Color(0xFF37464F),
-                                foregroundColor:
-                                    camposLlenos ? Colors.white : Colors.white38,
+                                foregroundColor: camposLlenos
+                                    ? Colors.white
+                                    : Colors.white38,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(16),
                                 ),
@@ -198,9 +213,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           RichText(
                             textAlign: TextAlign.center,
                             text: const TextSpan(
-                              style: TextStyle(color: Colors.white38, fontSize: 12),
+                              style: TextStyle(
+                                color: Colors.white38,
+                                fontSize: 12,
+                              ),
                               children: [
-                                TextSpan(text: 'Al registrarte en Duolingo, aceptas nuestros '),
+                                TextSpan(
+                                  text: 'Al registrarte en Duolingo, aceptas nuestros ',
+                                ),
                                 TextSpan(
                                   text: 'Términos',
                                   style: TextStyle(color: Color(0xFF1CB0F6)),
@@ -217,9 +237,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           RichText(
                             textAlign: TextAlign.center,
                             text: const TextSpan(
-                              style: TextStyle(color: Colors.white30, fontSize: 10),
+                              style: TextStyle(
+                                color: Colors.white30,
+                                fontSize: 10,
+                              ),
                               children: [
-                                TextSpan(text: 'Esta página está protegida por reCAPTCHA Enterprise. Aplican tanto la '),
+                                TextSpan(
+                                  text: 'Esta página está protegida por reCAPTCHA Enterprise. Aplican tanto la ',
+                                ),
                                 TextSpan(
                                   text: 'política de privacidad',
                                   style: TextStyle(color: Color(0xFF1CB0F6)),
