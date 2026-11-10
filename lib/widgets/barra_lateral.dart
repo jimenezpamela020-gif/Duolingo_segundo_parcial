@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../colors.dart';
+import '../screens/home_screen.dart';
 import '../screens/pantalla_adicional_1.dart';
 import '../screens/pantalla_adicional_2.dart';
 import '../screens/ligas_screen.dart';
@@ -72,19 +74,21 @@ class BarraLateral extends StatelessWidget {
 
     Widget? destino;
     switch (index) {
+      case 0: // <-- CORREGIDO: Redirige a la pantalla principal de Aprender
+        destino = const HomeScreen();
+        break;
       case 2:
-  destino = const LigasScreen();
-  break;
+        destino = const LigasScreen();
+        break;
       case 3:
         destino = const MisionesScreen();
         break;
-        case 4:
-  destino = const TiendaScreen();
-  break;
+      case 4:
+        destino = const TiendaScreen();
+        break;
       case 5:
         destino = const PerfilScreen();
         break;
-     
     }
 
     if (destino == null) {

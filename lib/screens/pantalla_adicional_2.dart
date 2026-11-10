@@ -1,10 +1,10 @@
-﻿
-import 'dart:typed_data';
+﻿import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../colors.dart';
 import '../widgets/marco_duolingo.dart';
+import 'login_screen.dart'; // Asegúrate de importar tu pantalla de login aquí
 
 const _borde = Color(0xFF37464F);
 const _gris = Color(0xFFAFAFAF);
@@ -164,7 +164,7 @@ class _PerfilScreenState extends State<PerfilScreen> {
                 Icons.local_fire_department,
                 '0',
                 'días de racha',
-                _gris.withOpacity(0.5),
+                _gris.withValues(alpha: 0.5),
                 apagada: true,
               ),
             ),
@@ -239,7 +239,7 @@ class _PerfilScreenState extends State<PerfilScreen> {
 
         const SizedBox(height: 32),
 
-        // BOTÓN CERRAR SESIÓN
+        // BOTÓN CERRAR SESIÓN (CORREGIDO PARA IR AL LOGIN)
         Center(
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -253,9 +253,10 @@ class _PerfilScreenState extends State<PerfilScreen> {
               ),
             ),
             onPressed: () {
-              Navigator.popUntil(
+              Navigator.pushAndRemoveUntil(
                 context,
-                (route) => route.isFirst,
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
+                (route) => false, // Borra todo el historial para volver al Login de forma limpia
               );
             },
             child: const Text(
