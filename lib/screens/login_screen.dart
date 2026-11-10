@@ -149,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   onChanged: actualizar,
                                   style: const TextStyle(color: Colors.white),
                                   decoration: const InputDecoration(
-                                    hintText: 'Correo (ej: admin@duolingo.com)',
+                                    hintText: 'Correo ',
                                     hintStyle: TextStyle(color: Colors.white38),
                                     border: InputBorder.none,
                                     contentPadding: EdgeInsets.all(18),
@@ -165,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   onChanged: actualizar,
                                   style: const TextStyle(color: Colors.white),
                                   decoration: InputDecoration(
-                                    hintText: 'Contraseña (ej: 1234)',
+                                    hintText: 'Contraseña ',
                                     hintStyle: const TextStyle(
                                       color: Colors.white38,
                                     ),
