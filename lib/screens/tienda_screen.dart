@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../colors.dart';
+//import '../colors.dart';
 import '../widgets/marco_duolingo.dart';
 
 const _borde = Color(0xFF37464F);
