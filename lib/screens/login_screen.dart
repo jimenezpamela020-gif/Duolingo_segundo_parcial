@@ -11,7 +11,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController nombreController = TextEditingController();
   final TextEditingController correoController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool ocultarPassword = true;
@@ -34,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  void crearCuenta() {
+  void iniciarSesion() {
     if (correoController.text.isEmpty || passwordController.text.isEmpty) {
       mostrarMensaje('Completa el correo y la contraseña');
     } else if (correoController.text != correoCorrecto ||
@@ -61,46 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           child: Column(
             children: [
-              // Fila superior con flecha de regreso y botón INGRESAR
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Colors.white70),
-                    onPressed: () {
-                      mostrarMensaje('Acción no disponible');
-                    },
-                  ),
-                  OutlinedButton(
-                    onPressed: () {
-                      mostrarMensaje('Ya estás en la pantalla de registro');
-                    },
-                    style: OutlinedButton.styleFrom(
-                      side: const BorderSide(
-                        color: Color(0xFF37464F),
-                        width: 2,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 10,
-                      ),
-                    ),
-                    child: const Text(
-                      'INGRESAR',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              // Contenido central de "Crea tu perfil"
+              // Contenido central de "Inicia sesión"
               Expanded(
                 child: Center(
                   child: ConstrainedBox(
@@ -110,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text(
-                            'Crea tu perfil',
+                            'Inicia sesión',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 26,
@@ -129,21 +89,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             child: Column(
                               children: [
-                                TextField(
-                                  controller: nombreController,
-                                  onChanged: actualizar,
-                                  style: const TextStyle(color: Colors.white),
-                                  decoration: const InputDecoration(
-                                    hintText: 'Nombre (opcional)',
-                                    hintStyle: TextStyle(color: Colors.white38),
-                                    border: InputBorder.none,
-                                    contentPadding: EdgeInsets.all(18),
-                                  ),
-                                ),
-                                const Divider(
-                                  height: 2,
-                                  color: Color(0xFF37464F),
-                                ),
                                 TextField(
                                   controller: correoController,
                                   onChanged: actualizar,
@@ -190,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             width: double.infinity,
                             height: 52,
                             child: ElevatedButton(
-                              onPressed: crearCuenta,
+                              onPressed: iniciarSesion,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: camposLlenos
                                     ? AppColors.azul
@@ -203,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               child: const Text(
-                                'CREAR CUENTA',
+                                'ENTRAR',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -219,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               children: [
                                 TextSpan(
-                                  text: 'Al registrarte en Duolingo, aceptas nuestros ',
+                                  text: 'Al iniciar sesión en Duolingo, aceptas nuestros ',
                                 ),
                                 TextSpan(
                                   text: 'Términos',

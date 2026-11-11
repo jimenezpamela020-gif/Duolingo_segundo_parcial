@@ -224,7 +224,11 @@ class _PerfilScreenState extends State<PerfilScreen> {
             ),
 
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+  ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(content: Text('Mostrando todos los logros...')),
+  );
+},
               child: Text(
                 'VER TODOS',
                 style: TextStyle(
@@ -587,7 +591,11 @@ class _PerfilScreenState extends State<PerfilScreen> {
     Color color,
   ) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(content: Text(texto)),
+  );
+},
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 20,

@@ -1,5 +1,6 @@
 ﻿import 'package:flutter/material.dart';
 import '../colors.dart';
+import 'home_screen.dart';
 import '../widgets/marco_duolingo.dart';
 
 const _borde = Color(0xFF37464F);
@@ -305,7 +306,12 @@ class _MisionesScreenState extends State<MisionesScreen> {
                   borderRadius: BorderRadius.circular(14),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(builder: (context) => const HomeScreen()),
+  );
+},
               child: Text(
                 'HAZ UNA LECCIÓN',
                 style: TextStyle(
