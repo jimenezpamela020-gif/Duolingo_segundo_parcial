@@ -173,7 +173,7 @@ class _LigasScreenState extends State<LigasScreen> {
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: color.withOpacity(0.20),
+        color: color.withValues(alpha: 0.20),
         borderRadius: BorderRadius.circular(25),
         border: Border.all(color: color, width: 4),
       ),
@@ -279,7 +279,7 @@ class _LigasScreenState extends State<LigasScreen> {
             ),
             decoration: BoxDecoration(
               color: esUsuario
-                  ? _azul.withOpacity(0.15)
+                  ? _azul.withValues(alpha: 0.15)
                   : Colors.transparent,
               border: const Border(
                 bottom: BorderSide(color: _borde),
@@ -572,13 +572,13 @@ class _LeccionScreenState extends State<LeccionScreen> {
                   Color borde = _borde;
 
                   if (_respondida && correcta) {
-                    fondo = _verde.withOpacity(0.15);
+                    fondo = _verde.withValues(alpha:0.15);
                     borde = _verde;
                   } else if (_respondida && seleccionada) {
-                    fondo = Colors.red.withOpacity(0.15);
+                    fondo = Colors.red.withValues(alpha:0.15);
                     borde = Colors.redAccent;
                   } else if (seleccionada) {
-                    fondo = _azul.withOpacity(0.15);
+                    fondo = _azul.withValues(alpha:0.15);
                     borde = _azul;
                   }
 

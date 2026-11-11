@@ -16,7 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordController = TextEditingController();
   bool ocultarPassword = true;
 
-  // 🔹 Credenciales estáticas exigidas por los requisitos del proyecto
+  // 🔹 Credenciales estáticas 
   static const String correoCorrecto = 'admin@duolingo.com';
   static const String passwordCorrecta = '1234';
 

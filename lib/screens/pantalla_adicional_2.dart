@@ -4,7 +4,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../colors.dart';
 import '../widgets/marco_duolingo.dart';
-import 'login_screen.dart'; // Asegúrate de importar tu pantalla de login aquí
+import 'login_screen.dart'; 
 
 const _borde = Color(0xFF37464F);
 const _gris = Color(0xFFAFAFAF);
@@ -256,7 +256,7 @@ class _PerfilScreenState extends State<PerfilScreen> {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const LoginScreen()),
-                (route) => false, // Borra todo el historial para volver al Login de forma limpia
+                (route) => false, 
               );
             },
             child: const Text(
@@ -269,7 +269,7 @@ class _PerfilScreenState extends State<PerfilScreen> {
           ),
         ),
 
-        const SizedBox(height: 24),
+      const SizedBox(height: 24),
       ],
     );
   }
@@ -511,7 +511,7 @@ class _PerfilScreenState extends State<PerfilScreen> {
           padding: const EdgeInsets.symmetric(vertical: 16),
           decoration: BoxDecoration(
             color: activo
-                ? AppColors.azul.withOpacity(0.12)
+                ? AppColors.azul.withValues(alpha: 0.12)
                 : null,
             border: Border(
               bottom: BorderSide(

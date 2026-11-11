@@ -114,7 +114,6 @@ class _MisionesScreenState extends State<MisionesScreen> {
               ],
             ),
           ),
-          // Reemplaza por tu ilustración: Image.asset('assets/buho.png')
           Expanded(
             flex: 2,
             child: Stack(

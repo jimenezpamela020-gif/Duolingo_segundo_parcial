@@ -5,18 +5,14 @@ import 'barra_lateral.dart';
 
 const _gris = Color(0xFFAFAFAF);
 
-/// Estructura común de las pantallas: barra lateral (escritorio) o barra
-/// inferior (móvil), columna central y columna derecha con stats y pie.
 class MarcoDuolingo extends StatelessWidget {
-  /// Ítem resaltado en la barra lateral (0 Aprender ... 5 Perfil, 6 Más).
+  
   final int menuActual;
 
-  /// Índice que usa tu BarraInferior en móvil.
   final int barraInferiorActual;
 
   final Widget centro;
 
-  /// Widgets de la columna derecha (debajo de la barra de racha/gemas/vidas).
   final List<Widget> derecha;
 
   const MarcoDuolingo({
@@ -114,7 +110,7 @@ class _BarraStats extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         const Text('🇫🇷', style: TextStyle(fontSize: 26)),
-        _contador(Icons.local_fire_department, '0', _gris.withOpacity(0.5)),
+        _contador(Icons.local_fire_department, '0', _gris.withValues(alpha: 0.5)),
         _contador(Icons.diamond_rounded, '1029', AppColors.azul),
         _contador(Icons.favorite_rounded, '5', const Color(0xFFFF4B4B)),
       ],

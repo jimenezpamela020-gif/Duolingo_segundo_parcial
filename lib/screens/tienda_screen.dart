@@ -362,7 +362,7 @@ class _TiendaScreenState extends State<TiendaScreen> {
                       vertical: 3,
                     ),
                     decoration: BoxDecoration(
-                      color: _gris.withOpacity(0.16),
+                      color: _gris.withValues(alpha: 0.16),
                       borderRadius: BorderRadius.circular(7),
                     ),
                     child: Text(

@@ -17,8 +17,7 @@ class _ItemMenu {
   const _ItemMenu(this.icono, this.color, this.titulo);
 }
 
-/// Barra lateral de Duolingo (se muestra en pantallas anchas).
-/// [actual]: 0 Aprender, 1 Practicar, 2 Ligas, 3 Desafíos, 4 Tienda, 5 Perfil, 6 Más
+/// Barra lateral de Duolingo 
 class BarraLateral extends StatelessWidget {
   final int actual;
 
@@ -68,13 +67,12 @@ class BarraLateral extends StatelessWidget {
     );
   }
 
-  /// Cambia de pantalla con un click, sin animación (como la web).
   void _ir(BuildContext context, int index) {
     if (index == actual) return;
 
     Widget? destino;
     switch (index) {
-      case 0: // <-- CORREGIDO: Redirige a la pantalla principal de Aprender
+      case 0: 
         destino = const HomeScreen();
         break;
       case 2:
@@ -101,7 +99,7 @@ class BarraLateral extends StatelessWidget {
     final pantalla = destino;
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
-        pageBuilder: (_, __, ___) => pantalla,
+        pageBuilder: (context, animation, secondaryAnimation) => pantalla,
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
@@ -120,7 +118,7 @@ class BarraLateral extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
           decoration: BoxDecoration(
             color: seleccionado
-                ? AppColors.azul.withOpacity(0.15)
+                ? AppColors.azul.withValues(alpha: 0.15)
                 : Colors.transparent,
             borderRadius: BorderRadius.circular(14),
             border: Border.all(

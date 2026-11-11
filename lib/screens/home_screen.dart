@@ -6,6 +6,7 @@ import 'ligas_screen.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -14,27 +15,37 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _mostrarGuia = false;
   bool _mostrarPopupLeccion = false;
   int _leccionesCompletadas = 0;
-  int _experienciaTotal = 0;
+  final int _experienciaTotal = 0;
+  bool _isOpening = false;
+ 
+ Future<void> _iniciarLeccionHome() async {
+  if (_isOpening) return; 
+  
+  setState(() {
+    _isOpening = true; 
+    _mostrarPopupLeccion = false;
+  });
 
-  Future<void> _iniciarLeccionHome() async {
-    setState(() {
-      _mostrarPopupLeccion = false;
-    });
+  final resultado = await Navigator.push<int>(
+    context,
+    MaterialPageRoute(
+      builder: (_) => 
+        LeccionFrancesScreen(numeroLeccion: _leccionesCompletadas + 1),
+    ),
+  );
 
-    final resultado = await Navigator.push<int>(
-      context,
-      MaterialPageRoute(
-        builder: (_) =>
-            LeccionFrancesScreen(numeroLeccion: _leccionesCompletadas + 1),
-      ),
-    );
+  if (!mounted) return;
+  
+  setState(() {
+    _isOpening = false; 
+  });
 
-    if (!mounted || resultado == null) return;
+  if (resultado == null) return;
 
-    setState(() {
-      _leccionesCompletadas++;
-      _experienciaTotal += resultado * 10;
-    });
+  setState(() {
+    _leccionesCompletadas = resultado;
+  });
+
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -153,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
 
-            // Nodos del Camino y el Búho Durmiendo con fondo visible
+            
             Center(
               child: SizedBox(
                 width: 380,
@@ -168,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         decoration: BoxDecoration(
                           color: const Color(
                             0xFF1C2C35,
-                          ), // Fondo de contraste para que resalte
+                          ),
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
                             color: const Color(0xFF37464F),
@@ -233,7 +244,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
 
-        // Popup flotante que aparece al hacer clic en "EMPEZAR"
+        
         if (_mostrarPopupLeccion)
           Positioned(
             top: 150,
@@ -522,10 +533,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-// =====================================================
-// PANTALLA DE LECCIÓN DE FRANCÉS (HOME)
-// =====================================================
-
 class _PreguntaFrances {
   final String pregunta;
   final List<String> opciones;
@@ -665,13 +672,13 @@ class _LeccionFrancesScreenState extends State<LeccionFrancesScreen> {
                   Color colBorde = borde;
 
                   if (_respondida && correcta) {
-                    fondo = verde.withOpacity(0.15);
+                    fondo = verde.withValues(alpha: 0.15);
                     colBorde = verde;
                   } else if (_respondida && seleccionada) {
-                    fondo = Colors.red.withOpacity(0.15);
+                    fondo = Colors.red.withValues(alpha: 0.15);
                     colBorde = Colors.redAccent;
                   } else if (seleccionada) {
-                    fondo = azul.withOpacity(0.15);
+                    fondo = azul.withValues(alpha: 0.15);
                     colBorde = azul;
                   }
 
